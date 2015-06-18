@@ -1,23 +1,36 @@
-/*  largestPalindromeProduct(multiplicands, digits)
- *
- *  @param multiplicands  the amount of multiplicands to multiply by
- *  @param digits         the amount of digits in each multiplicand
- *
- *  @returns an object containing the
- *  two factors used to produce the palindromeNumber
- *  and the palindromeNumber itself.
- */
 module.exports = function(multiplicands, digits){
   var factor_0 = 0;
   var factor_1 = 0;
-  var palindromeNumber = 0;
-  // do your work here
+  var palindromeNumber = -Infinity;
 
+  var maxValue = Math.pow(10, digits);
 
+  for(var i = 1; i < maxValue; i++) {
+    for(var j = 1; j < maxValue; j++) {
+      var product = i * j;
+
+      if(isPalindrome(product) && product > palindromeNumber) {
+        factor_0 = i;
+        factor_1 = j;
+        palindromeNumber = product;
+      }
+    }
+  }
 
   return {
     factor_0 : factor_0,
     factor_1 : factor_1,
     palindromeNumber : palindromeNumber
   };
+
+  function isPalindrome(product) {
+    var numberString = '' + product;
+    var reverseString = numberString
+                        .split('')
+                        .reverse('')
+                        .join('');
+
+  return numberString === reverseString;
+
+  }
 };
